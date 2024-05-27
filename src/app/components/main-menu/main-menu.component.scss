@@ -1,0 +1,33 @@
+.menu-sections {
+  display: flex;
+  width: 100%;
+  gap: 4rem;
+  color: #ffff;
+  align-items: center;
+  justify-content: center;
+  .menu-item {
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    margin-top: 15rem;
+    width: 29rem;
+    height: 45rem;
+    background-color: #44444480;
+
+    h2 {
+      font-weight: 400;
+      font-size: 2.3rem;
+    }
+  }
+  .item-moda {
+    background-image: url(../../../assets/img/skate_moda.jpg);
+  }
+
+  .item-completo {
+    background-image: url(../../../assets/img/skatecompleto.png);
+  }
+
+  .item-pieza {
+    background-image: url(../../../assets/img/skatepiezas2.png);
+  }
+}

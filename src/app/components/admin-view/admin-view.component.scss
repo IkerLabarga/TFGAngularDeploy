@@ -1,0 +1,33 @@
+.admin-box {
+  display: flex;
+  align-items: center;
+
+  padding: 1rem;
+
+  .edit-user {
+    display: flex;
+    gap: 2rem;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    img {
+      width: 3rem;
+    }
+  }
+
+  th,
+  td {
+    padding: 8px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #d1d1d1;
+  }
+}
+.admin-opt {
+  margin-top: 7rem;
+  padding: 1rem;
+}

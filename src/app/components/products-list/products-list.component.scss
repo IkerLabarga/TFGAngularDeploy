@@ -1,0 +1,76 @@
+.product-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .product-filter {
+    margin-top: 8rem;
+    display: flex;
+    .search-button {
+      position: absolute;
+      background-color: #da0037;
+      border-radius: 100%;
+      width: 3rem;
+      height: 3rem;
+      display: flex;
+      border: none;
+      justify-content: center;
+
+      .search-icon {
+        margin-top: 0.1rem;
+        padding-right: 0.175rem;
+        mask-image: url(./../../../assets/ico/searcg-icon.svg);
+        background-color: #ffff;
+        height: 2.5rem;
+        width: 2.5rem;
+        background-repeat: no-repeat;
+      }
+    }
+
+    .p-inputtext {
+      width: 50rem;
+      height: 3rem;
+      background-color: #373737c0;
+      border-radius: 5rem;
+      border-color: #646464;
+      color: #fff;
+      padding-left: 4rem;
+      &:focus {
+        outline: none;
+        box-shadow: none;
+      }
+    }
+  }
+
+  .list-container {
+    display: grid;
+    padding: 1.5rem 2.5rem 1.5rem 2.5rem;
+    margin-top: 4rem;
+    width: 100rem;
+    height: auto;
+
+    color: #ffff;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5rem;
+
+    .product-card {
+      background-color: #171717;
+      width: 14.75rem;
+      height: 15rem;
+      border-top: 0.5rem solid #da0037;
+      .product-img {
+        img {
+          width: 14.75rem;
+          height: 14.7rem;
+        }
+        margin-top: 0.5rem;
+      }
+      h4 {
+        display: flex;
+        justify-content: center;
+        margin: 0.2rem;
+      }
+    }
+  }
+}

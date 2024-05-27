@@ -1,0 +1,100 @@
+.config-box {
+  margin: 12rem 0 0 15%;
+  width: 90rem;
+  height: 48rem;
+  background-color: #171717;
+  padding: 2rem;
+  .config-user-avatar {
+    color: #ffff;
+    display: flex;
+    justify-content: space-between;
+
+    .update-img {
+      margin-right: 6rem;
+      display: flex;
+      .user-img {
+        margin-top: 2rem;
+        width: 10rem;
+        height: 10rem;
+        border-radius: 50%;
+      }
+
+      .user-no-img {
+        mask-image: url(../../../assets/ico/user-circle.svg);
+        background-color: #444444;
+        margin-top: 2rem;
+        width: 7rem;
+        height: 7rem;
+        border-radius: 50%;
+      }
+
+      .input-img {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3rem;
+        margin: 2rem 3rem 0 0;
+        input {
+          padding-right: 5rem;
+          padding: 0.5rem 1rem;
+          font-size: 1rem;
+          background-color: #da0037;
+          color: #fff;
+          border: 1px solid #646464;
+          border-radius: 1rem;
+        }
+      }
+
+      .register-button {
+        padding-right: 5rem;
+        display: flex;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        background-color: #da0037;
+        color: #fff;
+        border: 1px solid #646464;
+        border-radius: 1rem;
+      }
+    }
+
+    h3 {
+      margin-top: 2rem;
+      font-weight: 400;
+      display: flex;
+      h4 {
+        margin: 0 2rem;
+      }
+    }
+  }
+
+  .config-user {
+    .email-input,
+    .user-input,
+    .password-input {
+      display: flex;
+      gap: 2rem;
+
+      .update-button {
+        padding-right: 5rem;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        background-color: #da0037;
+        color: #fff;
+        border: 1px solid #646464;
+        border-radius: 1rem;
+      }
+
+      .p-inputtext {
+        background-color: #373737;
+        border-radius: 0;
+        border-color: #646464;
+        color: #fff;
+        width: 25rem;
+        &:focus {
+          outline: none;
+          box-shadow: none;
+        }
+      }
+    }
+  }
+}

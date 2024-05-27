@@ -1,0 +1,95 @@
+<div class="background-img">
+  <img src="../../../assets/img/BackgroundHome.png" alt="pito" />
+</div>
+
+<div
+  class="background-opacity"
+  *ngIf="navBarActive"
+  (click)="closeSidebar()"
+></div>
+
+<div class="sidebar" id="mySidebar" *ngIf="navBarActive">
+  <div class="sidebar-header">
+    <h1 class="side-text">Inicio</h1>
+    <div class="close-icon" (click)="closeSidebar()"></div>
+  </div>
+  <div class="separator"></div>
+
+  <div class="sidebar-item" (click)="navToHome()">
+    <h1 class="side-text">Home</h1>
+    <div class="home-icon"></div>
+  </div>
+  <div class="sidebar-item" (click)="navToLogin()">
+    <h1 class="side-text">Log In</h1>
+    <div class="login-icon"></div>
+  </div>
+</div>
+
+<div class="header-menu">
+  <div class="burguer-icon" (click)="openSidebar()"></div>
+  <h1 class="nav-text">Register</h1>
+</div>
+
+<div class="register-box">
+  <div class="register-form">
+    <h1 class="register-title">Register</h1>
+
+    <div class="username-input">
+      <p-floatLabel>
+        <input
+          pInputText
+          id="username"
+          placeholder="Ingrese su nombre aqui"
+          [(ngModel)]="username"
+        />
+        <label for="email">Nombre</label>
+      </p-floatLabel>
+    </div>
+
+    <div class="email-input">
+      <p-floatLabel>
+        <input
+          pInputText
+          id="email"
+          placeholder="Ingrese su email aqui"
+          [(ngModel)]="email"
+        />
+        <label for="email">Email</label>
+      </p-floatLabel>
+    </div>
+
+    <div class="password-input">
+      <p-floatLabel>
+        <p-password
+          [(ngModel)]="password"
+          [feedback]="false"
+          [toggleMask]="true"
+        />
+        <label for="email">Password</label>
+      </p-floatLabel>
+    </div>
+
+    <div class="avatar-input">
+      <h4>Añade una imagen a tu usuario:</h4>
+      <input
+        type="file"
+        (change)="onFileSelected($event)"
+        placeholder="Cambiar Avatar"
+        accept="image/jpeg, image/png"
+      />
+      <div class="not-filled" *ngIf="!base64String"></div>
+      <img
+        [src]="base64String"
+        alt="hola"
+        *ngIf="base64String"
+        class="user-img"
+      />
+    </div>
+
+    <div class="options">
+      <button class="register-button" (click)="registerUser()">
+        Registrarse
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,399 @@
+<div class="header-menu">
+  <div class="burguer-icon" (click)="openSidebar()"></div>
+  <h1 class="nav-text">Home</h1>
+</div>
+
+<div class="admin-opt">
+  <div>
+    <button (click)="showUserMenu()">USUARIOS</button>
+    <button (click)="showProductMenu()">PRODUCTOS</button>
+    <button (click)="showCommentMenu()">COMENTARIOS</button>
+    <button (click)="showBookMenu()">RESERVAS</button>
+    <button (click)="showImageMenu()">IMAGENES</button>
+  </div>
+</div>
+<div class="admin-box" *ngIf="opcion === opciones.USER">
+  <div class="admin-user">
+    <h1>User Control:</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre Usuario</th>
+          <th>Email</th>
+          <th>Contraseña</th>
+          <th>Rol</th>
+          <th>Imagen</th>
+          <th>Id Imagen</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.userId }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.password }}</td>
+          <td>{{ user.rol }}</td>
+          <img
+            class="img"
+            *ngIf="user.profileImg"
+            [src]="user.profileImg.fotoBase64"
+            alt="Imagen"
+          />
+          <th>{{ user.profileImg?.id }}</th>
+        </tr>
+      </tbody>
+    </table>
+    <h2>Config User:</h2>
+    <div class="edit-user">
+      <p-floatLabel>
+        <p-inputNumber inputId="integeronly" [(ngModel)]="newUserId" />
+        <label for="user ID">UserID</label>
+      </p-floatLabel>
+      <p-floatLabel>
+        <input pInputText id="username" [(ngModel)]="newUserUsername" />
+        <label for="username">Username</label>
+      </p-floatLabel>
+      <p-floatLabel>
+        <input pInputText id="email" [(ngModel)]="newUserEmail" />
+        <label for="email">Email</label>
+      </p-floatLabel>
+      <p-floatLabel>
+        <input pInputText id="password" [(ngModel)]="newUserPassword" />
+        <label for="password">Password</label>
+      </p-floatLabel>
+      <p-floatLabel>
+        <p-inputNumber inputId="integeronly" [(ngModel)]="newUserImgId" />
+        <label for="username">UserImgID</label>
+      </p-floatLabel>
+      <div>
+        <label for="rol">Role</label>
+        <select id="rol" name="rol" [(ngModel)]="newUserRol" required>
+          <option value="GUEST">Guest</option>
+          <option value="ADMIN">Admin</option>
+          <option value="USER">User</option>
+        </select>
+      </div>
+      <input
+        type="file"
+        placeholder="Cambiar Avatar"
+        accept="image/jpeg, image/png"
+        (change)="onFileSelected($event)"
+      />
+      <button (click)="updateUser()">Actualizar</button>
+      <button (click)="createUser()">Crear</button>
+      <button (click)="deleteUser()">Eliminar</button>
+    </div>
+
+    <h2>Uso del CRUD (GENERAL):</h2>
+    <p>Para el uso de este se deberá tener en cuenta las siguientes cosas:</p>
+    <p>
+      Crear usuario: Seran necesarios todos los campos de el item menos la id
+    </p>
+
+    <p>
+      Editar usuario: Seran necesarios todos los campos de el producto y la id
+      tiene que ser la misma que el item que se vaya a editar
+    </p>
+    <p>Eliminar usuario: Seran necesario solo la id del item a eliminar.</p>
+  </div>
+</div>
+
+<div class="admin-box" *ngIf="opcion === opciones.PRODUCT">
+  <div class="admin-user">
+    <h1>Products Control:</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Marca</th>
+          <th>Tipo</th>
+          <th>Cantidad</th>
+          <th>Precio</th>
+          <th>Descripcion</th>
+          <th>Disponibilidad</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td>{{ product.productId }}</td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.branch }}</td>
+          <td>{{ product.type }}</td>
+          <td>{{ product.quantity }}</td>
+          <td>{{ product.prize }}</td>
+          <td>{{ product.description }}</td>
+          <td>{{ product.available }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2>Config Product:</h2>
+    <div class="edit-user">
+      <p-floatLabel>
+        <p-inputNumber inputId="integeronly" [(ngModel)]="newProductId" />
+        <label for="user ID">ProductId</label>
+      </p-floatLabel>
+      <p-floatLabel>
+        <input pInputText id="productName" [(ngModel)]="newProductName" />
+        <label for="productName">Name</label>
+      </p-floatLabel>
+      <p-floatLabel>
+        <input pInputText id="ProductBranch" [(ngModel)]="newProductBranch" />
+        <label for="ProductBranch">Branch</label>
+      </p-floatLabel>
+      <div>
+        <label for="Type">Type</label>
+        <select id="Type" name="type" [(ngModel)]="newProductType" required>
+          <option value="SKATE_COMPLETO">SKATE_COMPLETO</option>
+          <option value="PIEZAS">PIEZAS</option>
+          <option value="MODA">MODA</option>
+        </select>
+      </div>
+      <p-floatLabel>
+        <p-inputNumber inputId="integeronly" [(ngModel)]="newProductQuantity" />
+        <label for="input-number">Quantity</label>
+      </p-floatLabel>
+      <p-floatLabel>
+        <p-inputNumber inputId="integeronly" [(ngModel)]="newProductPrize" />
+        <label for="inputnumber">Price</label>
+      </p-floatLabel>
+      <p-floatLabel>
+        <input
+          pInputText
+          id="Descripcion"
+          [(ngModel)]="newProductDescription"
+        />
+        <label for="Descripcion">Description</label>
+      </p-floatLabel>
+
+      <div>
+        <label for="available">available</label>
+        <select
+          id="available"
+          name="available"
+          [(ngModel)]="newProductAvalieable"
+          required
+        >
+          <option value="false">Fuera de stock</option>
+          <option value="true">Disponible</option>
+        </select>
+      </div>
+
+      <button (click)="updateProduct()">Actualizar</button>
+      <button (click)="createProduct()">Crear</button>
+      <button (click)="deleteProduct()">Eliminar</button>
+    </div>
+    <h2>Nota:</h2>
+    <p>
+      Para añadir imagenes a un producto se debe hacer desde la ventana de
+      Imagenes, donde introducimos la imagen a asignar y la id del producto que
+      se desee.
+    </p>
+  </div>
+</div>
+
+<div class="admin-box" *ngIf="opcion === opciones.COMMENT">
+  <div class="admin-comment">
+    <h1>Comments Control:</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Comentario</th>
+          <th>Fecha del comentario</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let comment of comments">
+          <td>{{ comment.commentId }}</td>
+          <td>{{ comment.comment }}</td>
+          <td>{{ formatDate(comment.dateCommented) }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2>Config Comments:</h2>
+    <div class="edit-user">
+      <p-floatLabel>
+        <p-inputNumber inputId="integeronly" [(ngModel)]="newCommentId" />
+        <label for="userID">CommentID</label>
+      </p-floatLabel>
+      <p-floatLabel>
+        <input pInputText id="comentario" [(ngModel)]="newCommentComentary" />
+        <label for="comentario">Comentario</label>
+      </p-floatLabel>
+      <p-floatLabel>
+        <p-calendar class="no-styles" [(ngModel)]="newCommentDate" />
+        <label for="p-calendar">Fecha </label>
+      </p-floatLabel>
+      <p-floatLabel>
+        <p-inputNumber inputId="integeronly" [(ngModel)]="newCommentUserId" />
+        <label for="password">Usuario ID</label>
+      </p-floatLabel>
+      <p-floatLabel>
+        <p-inputNumber
+          inputId="integeronly"
+          [(ngModel)]="newCommentProductId"
+        />
+        <label for="username">Producto ID</label>
+      </p-floatLabel>
+      <button (click)="updateComment()">Actualizar</button>
+      <button (click)="createComment()">Crear</button>
+      <button (click)="deleteComment()">Eliminar</button>
+    </div>
+  </div>
+</div>
+
+<div class="admin-box" *ngIf="opcion === opciones.BOOK">
+  <div class="admin-book">
+    <h1>Books Control:</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Dia de la reserva</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let book of books">
+          <td>{{ book.bookId }}</td>
+          <td>{{ formatDate(book.reserveDate) }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2>Config Books:</h2>
+    <div class="edit-user">
+      <p-floatLabel>
+        <p-inputNumber inputId="integeronly" [(ngModel)]="newBookId" />
+        <label for="userID">BookID</label>
+      </p-floatLabel>
+      <p-floatLabel>
+        <p-calendar class="no-styles" [(ngModel)]="newBookDate" />
+        <label for="p-calendar">Fecha </label>
+      </p-floatLabel>
+      <p-floatLabel>
+        <p-inputNumber inputId="integeronly" [(ngModel)]="newBookUserId" />
+        <label for="password">Usuario ID</label>
+      </p-floatLabel>
+      <p-floatLabel>
+        <p-inputNumber inputId="integeronly" [(ngModel)]="newBookProductId" />
+        <label for="username">Producto ID</label>
+      </p-floatLabel>
+      <button (click)="updateBook()">Actualizar</button>
+      <button (click)="createBook()">Crear</button>
+      <button (click)="deleteBook()">Eliminar</button>
+    </div>
+  </div>
+</div>
+
+<div class="admin-box" *ngIf="opcion === opciones.IMAGE">
+  <div class="admin-book">
+    <h1>Books Control:</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Imagen</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let image of images">
+          <td>{{ image.id }}</td>
+          <td><img [src]="image.fotoBase64" alt="hola:D" /></td>
+        </tr>
+      </tbody>
+    </table>
+    <h2>Config Books:</h2>
+    <div class="edit-user">
+      <p-floatLabel>
+        <p-inputNumber inputId="integeronly" [(ngModel)]="newImageId" />
+        <label for="userID">ImageID</label>
+      </p-floatLabel>
+
+      <p-floatLabel>
+        <p-inputNumber inputId="integeronly" [(ngModel)]="newImageProductId" />
+        <label for="userID">ProductID</label>
+      </p-floatLabel>
+
+      <input
+        type="file"
+        placeholder="Cambiar Avatar"
+        accept="image/jpeg, image/png"
+        (change)="onFileSelected($event)"
+      />
+
+      <button (click)="updateImage()">Actualizar</button>
+      <button (click)="createImage()">Crear</button>
+      <button (click)="deleteImage()">Eliminar</button>
+    </div>
+    <h2>Nota:</h2>
+    <p>
+      Para actualizar la imagen de un usuario se realiza desde su misma ventana
+    </p>
+  </div>
+</div>
+
+<!-- SIDEBAR-->
+<div
+  class="background-opacity"
+  *ngIf="navBarActive"
+  (click)="closeSidebar()"
+></div>
+<div class="sidebar" id="mySidebar" *ngIf="navBarActive">
+  <div class="sidebar-header">
+    <h2 class="side-text">Inicio</h2>
+    <div class="close-icon" (click)="closeSidebar()"></div>
+  </div>
+  <div class="separator"></div>
+
+  <div class="sidebar-item" (click)="navToLogIn()" *ngIf="!loggedInUser">
+    <h2 class="side-text">Log In</h2>
+    <div class="login-icon"></div>
+  </div>
+
+  <div class="sidebar-item" (click)="navToRegister()" *ngIf="!loggedInUser">
+    <h2 class="side-text">Register</h2>
+    <div class="register-icon"></div>
+  </div>
+
+  <div class="sidebar-item" (click)="navToConfig()" *ngIf="loggedInUser">
+    <h2 class="side-text">Configuración</h2>
+    <div class="config-icon"></div>
+  </div>
+
+  <div class="sidebar-item" (click)="navToBooks()" *ngIf="loggedInUser">
+    <h2 class="side-text">Reservas</h2>
+    <div class="box-icon"></div>
+  </div>
+
+  <div class="sidebar-item" (click)="navToHome()">
+    <h1 class="side-text">Home</h1>
+    <div class="home-icon"></div>
+  </div>
+
+  <div class="user-logged-item" *ngIf="loggedInUser">
+    <div class="separator"></div>
+    <div class="user-info">
+      <img
+        class="user-img"
+        *ngIf="loggedInUser.profileImg"
+        [src]="loggedInUser.profileImg.fotoBase64"
+        alt="Imagen"
+      />
+      <div class="user-details">
+        <h3 class="text">{{ loggedInUser.username }}</h3>
+        <p class="text">{{ loggedInUser.email }}</p>
+      </div>
+    </div>
+    <div class="separator"></div>
+
+    <div class="sidebar-item" (click)="userLogOut()" *ngIf="loggedInUser">
+      <h2 class="side-text">Log Out</h2>
+      <div class="login-icon"></div>
+    </div>
+
+    <div class="footer">
+      <p>Derechos reservados a mi etc explicitamente</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,99 @@
+<div class="background-img">
+  <img src="../../../assets/img/BackgroundHome.png" alt="pito" />
+</div>
+
+<div class="header-menu">
+  <div class="burguer-icon" (click)="openSidebar()"></div>
+  <h1 class="nav-text">Home</h1>
+</div>
+
+<div class="product-list">
+  <div class="product-filter">
+    <button class="search-button">
+      <div class="search-icon"></div>
+    </button>
+    <input
+      type="text"
+      pInputText
+      [(ngModel)]="filterText"
+      placeholder="Busque su product aqui..."
+      (input)="getFilteredInputProducts(type)"
+    />
+  </div>
+
+  <div class="list-container">
+    <ng-container *ngFor="let product of filteredProducts">
+      <div class="product-card" (click)="navToProductInfo(product.productId)">
+        <h4>{{ product.name }}</h4>
+        <div class="product-img" *ngIf="product.images">
+          <img [src]="product.images[0].fotoBase64" alt="hola" />
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<!-- SIDEBAR-->
+<div
+  class="background-opacity"
+  *ngIf="navBarActive"
+  (click)="closeSidebar()"
+></div>
+<div class="sidebar" id="mySidebar" *ngIf="navBarActive">
+  <div class="sidebar-header">
+    <h2 class="side-text">Inicio</h2>
+    <div class="close-icon" (click)="closeSidebar()"></div>
+  </div>
+  <div class="separator"></div>
+
+  <div class="sidebar-item" (click)="navToLogIn()" *ngIf="!loggedInUser">
+    <h2 class="side-text">Log In</h2>
+    <div class="login-icon"></div>
+  </div>
+
+  <div class="sidebar-item" (click)="navToRegister()" *ngIf="!loggedInUser">
+    <h2 class="side-text">Register</h2>
+    <div class="register-icon"></div>
+  </div>
+
+  <div class="sidebar-item" (click)="navToConfig()" *ngIf="loggedInUser">
+    <h2 class="side-text">Configuración</h2>
+    <div class="config-icon"></div>
+  </div>
+
+  <div class="sidebar-item" (click)="navToBooks()" *ngIf="loggedInUser">
+    <h2 class="side-text">Reservas</h2>
+    <div class="box-icon"></div>
+  </div>
+
+  <div class="sidebar-item" (click)="navToHome()">
+    <h1 class="side-text">Home</h1>
+    <div class="home-icon"></div>
+  </div>
+
+  <div class="user-logged-item" *ngIf="loggedInUser">
+    <div class="separator"></div>
+    <div class="user-info">
+      <img
+        class="user-img"
+        *ngIf="loggedInUser.profileImg"
+        [src]="loggedInUser.profileImg.fotoBase64"
+        alt="Imagen"
+      />
+      <div class="user-details">
+        <h3 class="text">{{ loggedInUser.username }}</h3>
+        <p class="text">{{ loggedInUser.email }}</p>
+      </div>
+    </div>
+    <div class="separator"></div>
+
+    <div class="sidebar-item" (click)="userLogOut()" *ngIf="loggedInUser">
+      <h2 class="side-text">Log Out</h2>
+      <div class="login-icon"></div>
+    </div>
+
+    <div class="footer">
+      <p>Derechos reservados a mi etc explicitamente</p>
+    </div>
+  </div>
+</div>

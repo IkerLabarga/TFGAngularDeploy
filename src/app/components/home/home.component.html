@@ -1,0 +1,504 @@
+<button (click)="showUserMenu()">USUARIOS</button>
+<button (click)="showProductMenu()">PRODUCTOS</button>
+<button (click)="showCommentMenu()">COMMENTARIOS</button>
+<button (click)="showBookMenu()">RESERVAS</button>
+<ng-container *ngIf="opcion === opciones.USER">
+  <h3>Componente para pruebas de funcionalidad</h3>
+  <h3>Usuarios</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>Born Date</th>
+        <th>Role</th>
+        <th>User Image</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.userId }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.password }}</td>
+        <td>{{ user.bornDate }}</td>
+        <td>{{ user.rol }}</td>
+        <td></td>
+        <td>
+          <button (click)="editUser(user)">Editar</button>
+          <button (click)="deleteUser(user.userId)">Eliminar</button>
+        </td>
+        <img
+          class="img"
+          *ngIf="user.profileImg"
+          [src]="user.profileImg.fotoBase64"
+          alt="Imagen"
+        />
+      </tr>
+    </tbody>
+  </table>
+
+  <hr />
+
+  <h2>Agregar Nuevo Usuario</h2>
+  <form #userForm="ngForm" (ngSubmit)="onSubmitUser(userForm)">
+    <div>
+      <label for="username">Username</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        [(ngModel)]="newUser.username"
+        required
+      />
+    </div>
+    <div>
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        [(ngModel)]="newUser.email"
+        required
+      />
+    </div>
+    <div>
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        [(ngModel)]="newUser.password"
+        required
+      />
+    </div>
+    <div>
+      <label for="bornDate">Born Date</label>
+      <input
+        type="date"
+        id="bornDate"
+        name="bornDate"
+        [(ngModel)]="newUser.bornDate"
+        required
+      />
+    </div>
+    <div>
+      <label for="rol">Role</label>
+      <select id="rol" name="rol" [(ngModel)]="newUser.rol" required>
+        <option value="GUEST">Guest</option>
+        <option value="ADMIN">Admin</option>
+        <option value="USER">User</option>
+      </select>
+    </div>
+    <div>
+      <label for="userImage">User Image</label>
+      <input
+        type="file"
+        id="userImage"
+        name="userImage"
+        (change)="onFileSelected($event)"
+        accept="image/*"
+        required
+      />
+    </div>
+    <button type="submit" [disabled]="userForm.invalid">Agregar Usuario</button>
+  </form>
+
+  <!-- Formulario de Edición -->
+
+  <div *ngIf="editingUser">
+    <h2>Editar Usuario</h2>
+    <form #editUserForm="ngForm" (ngSubmit)="onEditSubmitUser(editUserForm)">
+      <div>
+        <label for="editUsername">Username</label>
+        <input
+          type="text"
+          id="editUsername"
+          name="editUsername"
+          [(ngModel)]="editedUser.username"
+          required
+        />
+      </div>
+      <div>
+        <label for="editEmail">Email</label>
+        <input
+          type="email"
+          id="editEmail"
+          name="editEmail"
+          [(ngModel)]="editedUser.email"
+          required
+        />
+      </div>
+      <div>
+        <label for="editPassword">Password</label>
+        <input
+          type="password"
+          id="editPassword"
+          name="editPassword"
+          [(ngModel)]="editedUser.password"
+          required
+        />
+      </div>
+      <div>
+        <label for="editBornDate">Born Date</label>
+        <input
+          type="date"
+          id="editBornDate"
+          name="editBornDate"
+          [(ngModel)]="editedUser.bornDate"
+          required
+        />
+      </div>
+      <div>
+        <label for="editRol">Roles</label>
+        <select
+          id="editRol"
+          name="editRol"
+          [(ngModel)]="editedUser.rol"
+          required
+        >
+          <option value="GUEST">Guest</option>
+          <option value="ADMIN">Admin</option>
+          <option value="USER">User</option>
+        </select>
+      </div>
+      <button type="submit">Guardar Cambios</button>
+    </form>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="opcion === opciones.PRODUCT">
+  <h3>Componente para pruebas de funcionalidad</h3>
+  <h3>Productos</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Nombre</th>
+        <th>Marca</th>
+        <th>Tipo</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product.productId }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.branch }}</td>
+        <td>{{ product.type }}</td>
+
+        <ng-container *ngIf="product.images && product.images.length > 0">
+          <img
+            *ngFor="let image of product.images"
+            class="img"
+            [src]="image.fotoBase64"
+            alt="Imagen"
+          />
+        </ng-container>
+        <td>
+          <button (click)="editProduct(product)">Editar</button>
+          <button (click)="deleteProduct(product.productId)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr />
+
+  <h2>Agregar Nuevo Producto</h2>
+  <form #productForm="ngForm" (ngSubmit)="onSubmitProduct(productForm)">
+    <div>
+      <label for="name">Nombre</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        [(ngModel)]="newProduct.name"
+        required
+      />
+    </div>
+    <div>
+      <label for="branch">Marca</label>
+      <input
+        type="text"
+        id="branch"
+        name="branch"
+        [(ngModel)]="newProduct.branch"
+        required
+      />
+    </div>
+    <div>
+      <label for="type">Tipo</label>
+      <select id="type" name="type" [(ngModel)]="newProduct.type" required>
+        <option value="SKATE_COMPLETO">Skate Completo</option>
+        <option value="PIEZAS">Piezas</option>
+        <option value="MODA">Moda</option>
+      </select>
+    </div>
+
+    <button type="submit" [disabled]="productForm.invalid">
+      Agregar Producto
+    </button>
+  </form>
+
+  <!-- Formulario de Edición -->
+
+  <div *ngIf="editingProduct">
+    <h2>Editar Producto</h2>
+    <form
+      #editProductForm="ngForm"
+      (ngSubmit)="onEditSubmitProduct(editProductForm)"
+    >
+      <div>
+        <label for="editName">Nombre</label>
+        <input
+          type="text"
+          id="editName"
+          name="editName"
+          [(ngModel)]="editedProduct.name"
+          required
+        />
+      </div>
+      <div>
+        <label for="editBranch">Marca</label>
+        <input
+          type="text"
+          id="editBranch"
+          name="editBranch"
+          [(ngModel)]="editedProduct.branch"
+          required
+        />
+      </div>
+      <div>
+        <label for="editType">Tipo</label>
+        <select
+          id="editType"
+          name="editType"
+          [(ngModel)]="editedProduct.type"
+          required
+        >
+          <option value="SKATE_COMPLETO">Skate Completo</option>
+          <option value="PIEZAS">Piezas</option>
+          <option value="MODA">Moda</option>
+        </select>
+      </div>
+
+      <button type="submit">Guardar Cambios</button>
+    </form>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="opcion === opciones.COMMENT">
+  <h3>Componente para pruebas de funcionalidad</h3>
+  <h3>Comentarios</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Texto</th>
+        <th>Usuario Id</th>
+        <th>Producto Id</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let comment of comments">
+        <td>{{ comment.commentId }}</td>
+        <td>{{ comment.comment }}</td>
+        <td>{{ comment.user }}</td>
+        <td>{{ comment.product }}</td>
+        <td>
+          <button (click)="editComment(comment)">Editar</button>
+          <button (click)="deleteComment(comment.commentId)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr />
+
+  <h2>Agregar Nuevo Comentario</h2>
+  <form #commentForm="ngForm" (ngSubmit)="onSubmitComment(commentForm)">
+    <div>
+      <label for="commentText">Texto</label>
+      <textarea
+        id="commentText"
+        name="commentText"
+        [(ngModel)]="newComment.comment"
+        required
+      ></textarea>
+    </div>
+    <div>
+      <label for="commentUserId">Usuario Id</label>
+      <input
+        type="number"
+        id="commentUserId"
+        name="commentUserId"
+        [(ngModel)]="newComment.user"
+        required
+      />
+    </div>
+    <div>
+      <label for="commentProductId">Producto Id</label>
+      <input
+        type="number"
+        id="commentProductId"
+        name="commentProductId"
+        [(ngModel)]="newComment.product"
+        required
+      />
+    </div>
+    <button type="submit" [disabled]="commentForm.invalid">
+      Agregar Comentario
+    </button>
+  </form>
+
+  <!-- Formulario de Edición -->
+
+  <div *ngIf="editingComment">
+    <h2>Editar Comentario</h2>
+    <form
+      #editCommentForm="ngForm"
+      (ngSubmit)="onEditSubmitComment(editCommentForm)"
+    >
+      <div>
+        <label for="editCommentText">Texto</label>
+        <textarea
+          id="editCommentText"
+          name="editCommentText"
+          [(ngModel)]="editedComment.comment"
+          required
+        ></textarea>
+      </div>
+      <div>
+        <label for="editCommentUserId">Usuario Id</label>
+        <input
+          type="number"
+          id="editCommentUserId"
+          name="editCommentUserId"
+          [(ngModel)]="editedComment.user"
+          required
+        />
+      </div>
+      <div>
+        <label for="editCommentProductId">Producto Id</label>
+        <input
+          type="number"
+          id="editCommentProductId"
+          name="editCommentProductId"
+          [(ngModel)]="editedComment.product"
+          required
+        />
+      </div>
+      <button type="submit">Guardar Cambios</button>
+    </form>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="opcion === opciones.BOOK">
+  <h3>Componente para pruebas de funcionalidad</h3>
+  <h3>Libros</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Id Reserva</th>
+        <th>Fehca</th>
+        <th>Producto Id</th>
+        <th>Usuario Id</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let book of books">
+        <td>{{ book.bookId }}</td>
+        <td>{{ book.reserveDate }}</td>
+        <td>{{ book.product?.productId }}</td>
+        <td>{{ book.user?.userId }}</td>
+        <td>
+          <button (click)="editBook(book)">Editar</button>
+          <button (click)="deleteBook(book.bookId)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr />
+
+  <h2>Agregar Nuevo Libro</h2>
+  <form #bookForm="ngForm" (ngSubmit)="onSubmitBook(bookForm)">
+    <div>
+      <label for="bookDate">Título</label>
+      <input
+        type="text"
+        id="bookDate"
+        name="bookDate"
+        [(ngModel)]="newBook.reserveDate"
+        required
+      />
+    </div>
+    <div>
+      <label for="bookProduct">Producto id</label>
+      <input
+        type="text"
+        id="bookProduct"
+        name="bookProduct"
+        [(ngModel)]="newBook.product"
+        required
+      />
+    </div>
+    <div>
+      <label for="bookUserId">Usuario Id</label>
+      <input
+        type="number"
+        id="bookUserId"
+        name="bookUserId"
+        [(ngModel)]="newBook.user"
+        required
+      />
+    </div>
+    <button type="submit" [disabled]="bookForm.invalid">Agregar Libro</button>
+  </form>
+
+  <!-- Formulario de Edición -->
+
+  <div *ngIf="editingBook">
+    <h2>Editar Libro</h2>
+    <form #editBookForm="ngForm" (ngSubmit)="onEditSubmitBook(editBookForm)">
+      <div>
+        <label for="editBookDate">Date</label>
+        <input
+          type="text"
+          id="editBookDate"
+          name="editBookDate"
+          [(ngModel)]="editedBook.reserveDate"
+          required
+        />
+      </div>
+      <div>
+        <label for="editBookProductId">Producto Id</label>
+        <input
+          type="number"
+          id="editBookProductId"
+          name="editBookProductId"
+          [(ngModel)]="editedBook.product"
+          required
+        />
+      </div>
+      <div>
+        <label for="editBookUser">Usuario Id</label>
+        <input
+          type="text"
+          id="editBookUser"
+          name="editBookUser"
+          [(ngModel)]="editedBook.user"
+          required
+        />
+      </div>
+      <button type="submit">Guardar Cambios</button>
+    </form>
+  </div>
+</ng-container>

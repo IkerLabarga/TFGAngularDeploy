@@ -1,0 +1,66 @@
+<div class="background-img">
+  <img src="../../../assets/img/BackgroundHome.png" alt="pito" />
+</div>
+
+<div class="header-menu">
+  <div class="burguer-icon" (click)="openSidebar()"></div>
+  <h1 class="nav-text">Log In</h1>
+</div>
+
+<div class="login-box">
+  <div class="login-form">
+    <h1 class="login-title">Log In</h1>
+
+    <div class="email-input">
+      <p-floatLabel>
+        <input
+          pInputText
+          id="email"
+          placeholder="Ingrese su email aqui"
+          [(ngModel)]="email"
+        />
+        <label for="email">Email</label>
+      </p-floatLabel>
+    </div>
+
+    <div class="password-input">
+      <p-floatLabel>
+        <p-password
+          [(ngModel)]="password"
+          [feedback]="false"
+          [toggleMask]="true"
+        />
+        <label for="email">Password</label>
+      </p-floatLabel>
+    </div>
+
+    <div class="options">
+      <button class="login-button" (click)="logIn(email, password)">
+        Iniciar Sesion
+      </button>
+      <p>¿No tienes cuenta?</p>
+      <button class="register-button" (click)="navToRegister()">
+        Registrarse
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- SIDEBAR-->
+<div
+  class="background-opacity"
+  *ngIf="navBarActive"
+  (click)="closeSidebar()"
+></div>
+<div class="sidebar" id="mySidebar" *ngIf="navBarActive">
+  <div class="sidebar-header">
+    <h1 class="side-text">Inicio</h1>
+    <div class="close-icon" (click)="closeSidebar()"></div>
+  </div>
+  <div class="separator"></div>
+
+  <div class="sidebar-item" (click)="navToHome()">
+    <h1 class="side-text">Home</h1>
+    <div class="home-icon"></div>
+  </div>
+</div>
